@@ -1,43 +1,55 @@
-import { useRef, useEffect } from 'react';
-import './App.css';
-import './litelements/my-element';
-import './litelements/pushbutton-element';
+import { useRef, useEffect, useState } from 'react'
+import './App.css'
+import './litelements/my-element'
+import './litelements/pushbutton-element'
 
 function App() {
-  const redButtonRef = useRef();
-  
+  const [btnCounter, setBtnCounter] = useState(0)
+  const [name, setName] = useState('')
+  const redButtonRef = useRef()
+
   const clickHandler = () => {
-    console.log('RED BUTTON PRESSED!');
+    console.log('RED BUTTON PRESSED!')
+    setBtnCounter(btnCounter + 1)
   }
 
   useEffect(() => {
-    let redButton = null;
+    let redButton = null
 
     if (redButtonRef.current) {
-      redButtonRef.current.addEventListener('button-press', clickHandler);
-      redButton = redButtonRef.current;
+      redButtonRef.current.addEventListener('button-press', clickHandler)
+      redButton = redButtonRef.current
     }
 
     return () => {
       if (redButton) {
-        redButton.removeEventListener('button-press', clickHandler);
-      }  
-    };
-  });
+        redButton.removeEventListener('button-press', clickHandler)
+      }
+    }
+  })
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <my-element />
+    <div className='App'>
+      <header className='App-header'>
+        <div>{`Button has been pressed ${btnCounter} times`}</div>
         <br />
-        <wokwi-pushbutton color="red" ref={redButtonRef}/>
+        {/* <input
+          style={{
+            border: '0',
+            borderBottom: 'solid 1px #fff',
+            backgroundColor: '#1e1e1e',
+            color: '#fff',
+          }}
+          type='text'
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        /> */}
+        <hello-element hello='VIZIO' />
         <br />
-        <wokwi-pushbutton color="green"/>
-        <br />
-        <wokwi-pushbutton color="yellow"/>
+        <pushbutton-element color='red' ref={redButtonRef} />
       </header>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

@@ -1,12 +1,16 @@
-import { LitElement, html, customElement } from 'lit-element';
+import { LitElement, html, customElement, property } from 'lit-element'
 
-@customElement('my-element')
-class MyElement extends LitElement {
+@customElement('hello-element')
+class HelloElement extends LitElement {
+  @property() hello = 'EPAM'
+  static get properties() {
+    return {
+      hello: { type: String },
+    }
+  }
   render() {
-    return html`
-      <div>Hello from LitElement!</div>
-    `;
+    return html` <p>Hello ${this.hello}!</p> `
   }
 }
 
-export default MyElement;
+export default HelloElement
